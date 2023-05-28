@@ -13,9 +13,13 @@ const DUMMY_TODO = [
 function App() {
   const [Todos, setTodos] = useState(DUMMY_TODO)
   const [newTodo, setNewTodo] = useState('')
+  const [error, setError] = useState('')
 
 function addNewTodo(){
-  const updatedTodos = [...Todos]
+  if(newTodo.length === 0){
+    setError("Todo tidak boleh kosong")
+  } else{
+    const updatedTodos = [...Todos]
   const objTodo = {
     id: nanoid(),
     title: newTodo,
@@ -25,6 +29,8 @@ function addNewTodo(){
   updatedTodos.push(objTodo)
   setTodos(updatedTodos)
   setNewTodo('')
+  }
+  
 }
 
 function completeTodo(targetTodoId){
@@ -36,6 +42,10 @@ function completeTodo(targetTodoId){
   })
   setTodos(updatedTodos)
   }
+  function handleChange(event){
+    setNewTodo(event.target.value)
+    setError('')
+  }
   console.log(Todos)
 
   return (
@@ -45,9 +55,14 @@ function completeTodo(targetTodoId){
         type='text' 
         placeholder='Isi Todo disini' 
         value={newTodo} 
-        onChange={event => setNewTodo(event.target.value)}
+        onChange={event => handleChange(event)}
       />
       <button onClick={() => addNewTodo()}>Create</button>
+      {
+        error.length > 0 ? (
+          <p style={{ color:"red"}}>{error}</p>
+         ) : null
+      }
       <ul>
         {
           Todos.map((todo) => (
