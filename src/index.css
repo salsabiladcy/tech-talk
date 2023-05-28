@@ -9,6 +9,11 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-ul{
+ul {
   padding-inline-start: 0%;
+}
+
+p {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
 }

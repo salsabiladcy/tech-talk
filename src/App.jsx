@@ -63,6 +63,7 @@ function completeTodo(targetTodoId){
           <p style={{ color:"red"}}>{error}</p>
          ) : null
       }
+
       <ul>
         {
           Todos.map((todo) => (
@@ -73,7 +74,8 @@ function completeTodo(targetTodoId){
             }}>
               <input type="checkbox" 
               onChange={()=>completeTodo(todo.id)}/>
-                {todo.title} </li>
+              <p>{todo.title}</p>
+              <button style={{marginLeft:'16px'}}>X</button> </li>
           ))
         }
       </ul>
