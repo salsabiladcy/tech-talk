@@ -1,12 +1,49 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { nanoid } from 'nanoid'
+
+const DUMMY_TODO = [
+  {
+    id: nanoid(),
+    title: "Belajar React",
+    isComplete: false
+  }
+]
 
 function App() {
-  return(
+  const [Todos, setTodos] = useState(DUMMY_TODO)
+  const [newTodo, setNewTodo] = useState('')
+
+function addNewTodo(){
+  const updatedTodos = [...Todos]
+  const objTodo = {
+    id: nanoid(),
+    title: newTodo,
+    isCompleted: false
+  }
+
+  updatedTodos.push(objTodo)
+  setTodos(updatedTodos)
+  setNewTodo('')
+}
+
+  return (
     <>
-    <h1>Hello Word</h1>
+      <h1>Todo App</h1>
+      <input 
+        type='text' 
+        placeholder='Isi Todo disini' 
+        value={newTodo} 
+        onChange={event => setNewTodo(event.target.value)}
+      />
+      <button onClick={() => addNewTodo()}>Create</button>
+      <ul>
+        {
+          Todos.map((todo) => (
+            <li key = {todo.id}>{todo.title} </li>
+          ))
+        }
+      </ul>
     </>
   )
 }
